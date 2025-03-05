@@ -2,7 +2,14 @@ import React from "react";
 
 const Page = async () => {
   try {
-    const response = await fetch("http://localhost:3000/api/users/[id]");
+    const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/users" || "/api/users", {
+      cache: "no-store",
+      next: { revalidate: 0 }
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch data');
+    }
     const users = await response.json();
 
     return (
