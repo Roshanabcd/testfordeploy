@@ -2,9 +2,9 @@ import React from "react";
 
 const Page = async () => {
   try {
-    const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/users" || "/api/users", {
-      cache: "no-store",
-      next: { revalidate: 0 }
+    // Using the full URL for server-side fetching
+    const response = await fetch("http://localhost:3000/api/users", {
+      cache: "no-store"
     });
     
     if (!response.ok) {
@@ -30,7 +30,7 @@ const Page = async () => {
                   <td className="px-4 py-2">{user.id}</td>
                   <td className="px-4 py-2">{user.tittle}</td>
                   <td className="px-4 py-2">{user.description}</td>
-                  <td className="px-4 py-2">{user.price}</td>
+                  <td className="px-4 py-2">{user.price || 'N/A'}</td>
                 </tr>
               ))}
             </tbody>
